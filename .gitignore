@@ -3,3 +3,7 @@
 ################################################################################
 
 /FirstAPIProject/.vs/FirstAPIProject/FileContentIndex
+.vs
+bin
+obj
+
