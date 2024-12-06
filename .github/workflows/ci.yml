@@ -1,0 +1,45 @@
+name: Continuous integration
+
+on:
+  pull_request:
+    branches:
+      - development
+      - uat
+      - main
+jobs: 
+  CI:
+    runs-on: windows-latest
+    steps:
+    # Checkout to the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: feature/src
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0'
+
+      - name: Sanity Check
+        run: |
+          whoami
+          dotnet --version
+          
+      - name: Restore dependencies
+        run: |
+          dotnet restore .\WebApplication1.sln
+      - name: Build the Application
+        run: |
+          dotnet build .\WebApplication1.sln /p:Configuration=Release /p:DeployOnBuild=True /p:WebPublishMethod="File System" /p:DeleteExistingFiles=True /t:clean,rebuild
+      - name: compress artifact
+        run: |
+         Compress-Archive "D:\a\web-app-test\web-app-test\obj\Release\net6.0\PubTmp\Out\" -DestinationPath ".\alpha.zip"
+      - name: publish artifact to Github releases
+        run:  |
+          gh release create "alpha" -t "alpha" "alpha.zip"
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+
+          
