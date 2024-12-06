@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: feature/src
+          ref: Devlopment
 
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
@@ -26,10 +26,10 @@ jobs:
           
       - name: Restore dependencies
         run: |
-          dotnet restore .\WebApplication1.sln
+          dotnet restore .\FirstAPIProject.sln
       - name: Build the Application
         run: |
-          dotnet build .\WebApplication1.sln /p:Configuration=Release /p:DeployOnBuild=True /p:WebPublishMethod="File System" /p:DeleteExistingFiles=True /t:clean,rebuild
+          dotnet build .\FirstAPIProject.sln /p:Configuration=Release /p:DeployOnBuild=True /p:WebPublishMethod="File System" /p:DeleteExistingFiles=True /t:clean,rebuild
       - name: compress artifact
         run: |
          Compress-Archive "D:\a\web-app-test\web-app-test\obj\Release\net6.0\PubTmp\Out\" -DestinationPath ".\alpha.zip"
