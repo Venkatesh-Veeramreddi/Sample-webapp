@@ -32,7 +32,7 @@ jobs:
           dotnet build .\FirstAPIProject.sln /p:Configuration=Release /p:DeployOnBuild=True /p:WebPublishMethod="File System" /p:DeleteExistingFiles=True /t:clean,rebuild
       - name: compress artifact
         run: |
-         Compress-Archive "D:\Sample-webapp\obj\Release\" -DestinationPath ".\alpha.zip"
+         Compress-Archive "D:\a\Sample-webapp\Sample-webapp\obj\Release\net6.0\PubTmp\Out\" -DestinationPath ".\alpha.zip"
       - name: publish artifact to Github releases
         run:  |
           gh release create "alpha" -t "alpha" "alpha.zip"
