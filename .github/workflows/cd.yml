@@ -33,5 +33,4 @@ jobs:
       - name: Deploy artifact to IIS path
         run: Copy-Item ".\alpha\Out\*"  -Destination "D:\a\_temp\" -Recurse -Force  
 
-# Jobs run in the second server
 
